@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="DockerCloud"
+  id="myeclipse.1426318018080"
+  context-root="/DockerCloud"
+  j2ee-spec="5.0"
+  archive="DockerCloud.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+
