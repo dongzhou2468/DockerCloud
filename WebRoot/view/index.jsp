@@ -47,7 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <button type="button" class="rl-close" data-dismiss="modal" onclick="ShowNo()"></button>
             </div>
             <div class="rl-modal-body">
-                <form id="signup-form" method="post" action="admin.php?controller=admin&method=login">
+                <form id="signup-form" method="post" action="/DockerCloud/login">
                     <div>
                         <input type="text" name="email" data-validate="email" autocomplete="off" class="rlf-input rlf-input-email" placeholder="pls input your email">
                     </div>

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.dockerapi.model.ContainerInfo;
+import com.dockerapi.dao.DBConn;
 
 //import entity.User;
 
@@ -19,14 +19,15 @@ public class LoginCtrl {
 	
 	@Resource
 	private ContainerCtrl containerCtrl;
+	@Resource
+	private DBConn dbConn;
 	
 	@RequestMapping("/login")
-	public ModelAndView loginAuth() {
+	public ModelAndView loginAuth(String email, String password) {
 		
 		String dest = "index";
-		
-		//authentication
-		AUTHEN = true;
+		System.out.println("email=" + email + "password=" + password);
+		AUTHEN = dbConn.loginAuth(email, password);
 		REDIRECT = true;
 		if(REDIRECT) {
 			return containerCtrl.listContainers(PAGE, "");

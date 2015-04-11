@@ -35,7 +35,7 @@ public class ContainerCtrl {
 			containerImpl.setDockerUrlResource(dockerUrl);
 			containerImpl.listContainers();
 		}
-		ModelAndView mv = new ModelAndView("containers");
+		ModelAndView mv = new ModelAndView("containers1");
 		mv.addObject("currentPage", forwardPage);
 		mv.addObject("count", containerImpl.getcList().size());
 		mv.addObject("cts", containerImpl.getcList());

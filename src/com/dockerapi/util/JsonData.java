@@ -24,7 +24,9 @@ public class JsonData {
 		ArrayList<Container> cList = gson.fromJson(jsonData, listType);
 		for (int i = 0; i < cList.size(); i++) {
 			cList.get(i).setSubId();
-			System.out.println(i + " => " + cList.get(i).getSubId());
+			cList.get(i).setName();
+			cList.get(i).setContainerStatus();
+			cList.get(i).setWebsite();
 		}
 		dci.setcList(cList);
 		System.out.println(dci.toString());

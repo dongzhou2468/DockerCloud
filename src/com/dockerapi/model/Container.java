@@ -7,12 +7,39 @@ public class Container {
 	private long Created;
     private String Image;
     private String[] Names;
-    private Port[] Ports;   //Example value "49164->6900, 49165->7100"
-//    private int SizeRootFs;
-//    private int SizeRw;
+    private Port[] Ports;
     private String Status;
     private String subId;
-	
+    private String name;
+    private String containerStatus;
+    private String website;
+    
+    public String getContainerStatus() {
+		return containerStatus;
+	}
+
+	public void setContainerStatus() {
+		this.containerStatus = Status.startsWith("Exited")? "Exited" : "Running";
+	}
+
+	public String getWebsite() {
+		return website;
+	}
+
+	public void setWebsite() {
+		if(Ports.length != 0)
+			this.website = "http://222.201.187.162:" + Ports[0].PublicPort;
+		else this.website = "javascript:void(0);";
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName() {
+		this.name = Names[0].substring(1);
+	}
+
 	public String getSubId() {
 		return subId;
 	}
@@ -72,7 +99,7 @@ public class Container {
 	@Override
     public String toString() {
         return "Container{" + "id=" + Id + ", command=" + Command + ", image=" + Image + 
-        		", created=" + Created + ", status=" + Status + ", names=" + Names[0] + ", subid=" + subId + ", ports" + Ports.length + '}';
+        		", created=" + Created + ", status=" + Status + ", containerStatus=" + containerStatus + ", names=" + name + ", website=" + website + ", subid=" + subId + ", ports" + Ports.length + '}';
     }
 
 	public String getPorts() {
