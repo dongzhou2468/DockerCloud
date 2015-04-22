@@ -20,6 +20,8 @@ public class LoginCtrl {
 	@Resource
 	private ContainerCtrl containerCtrl;
 	@Resource
+	private ImageCtrl imageCtrl;
+	@Resource
 	private DBConn dbConn;
 	
 	@RequestMapping("/login")

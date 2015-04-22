@@ -47,7 +47,7 @@ jQuery(function($){
 		}
 	});
     var height = $('.small').outerHeight() > $('.big').outerHeight() ? $('.small').outerHeight() : $('.big').outerHeight();
-    $('.mid').height(height+126);
+	$('.mid').height(height+50);
 });
 	</script>
   <section>
@@ -55,13 +55,13 @@ jQuery(function($){
   		<div class="small">
 	        <div class="cate">
 	            <a class="cate_name selected" href="#">Containers</a>
-	            <a class="cate_name " href="#">Images</a>
-	            <a class="cate_name " href="#">Configuration</a>
-	            <a class="cate_name " href="#">DockerHub</a>
+	            <a class="cate_name" href="http://localhost:8080/DockerCloud/image/list">Images</a>
+	            <a class="cate_name" href="#">Configuration</a>
+	            <a class="cate_name" href="#">DockerHub</a>
 	        </div>
     	</div>
     	<div class="right" style="left:185px;top:30px;font-size:28px;">
-    		<h1>Containers</h1>
+    		<h1>Containers&emsp;</h1>
     		<form class="right" action="#">
       			<input name="search" class="search-box" type="text" placeholder="Search" autocomplete="off">
     		</form>
@@ -71,13 +71,14 @@ jQuery(function($){
         <ul>
         <%
 		int edge = 10;
-		if(currentPage == pageCount)
+		boolean last = false;
+		if(last = currentPage == pageCount)
 			edge = (count % 10 == 0) ? 10 : count % 10;
 		for(int i = 0; i < edge; i++) {
 			i = i + (currentPage - 1) * 10;
 			request.setAttribute("i", i);%>
             <li id="1428575893" class="apk_infos">
-                <a href="${cts[i].website }"><img src="http://source.7po.com/static/upload/cover_tmp/201504/0ac29c97413ba667b305b05bc3c18491.png?imageView2/1/w/185/h/98" alt="乐视tv"/></a>
+                <a href="${cts[i].website }"><img src="img/app/${i}.jpg" alt="${cts[i].name }"/></a>
                 <h1 class="apk_title"><a href="${cts[i].website }">${cts[i].name } </a><span>v1.5.24 &emsp;[${cts[i].containerStatus }]</span></h1>
                 <p class="apk_desc">Image: ${cts[i].image}<br>Ports: ${cts[i].ports}</p>
                 <span class="apk_info">2015-04-09 &bull; 11Stars</span>
@@ -93,7 +94,10 @@ jQuery(function($){
                 <a class="apk_down start" href="http://localhost:8080/DockerCloud/container/start?i=<%=i%>&currentPage=<%=currentPage%>">Start</a>
                 <%} %>
             </li>
-            <%} %>
+            <%
+            if(last)
+            	i = i - 10;
+        } %>
         </ul>
         <div class="fenye">
  		<%

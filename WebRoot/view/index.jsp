@@ -9,6 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <base href="<%=basePath%>">
     <title>SeaBird</title>
     <link charset="utf-8" type="text/css" rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/style3.css">
   </head>
   
   <body>
@@ -31,9 +32,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        document.getElementById("divLogin").style.display = "";
 	    }
 	  </script>
-	started? => ${started }
-    This is my JSP page. <br>
-    <a href="#" onclick="showFloat()">Sign in</a>
+	  
+	<div id="top">
+        <div class="wp">
+            <div class="z">
+                <a style="color:#999;" id="logo"></a>
+                <a href="/DockerCloud/container/list">Containers</a>
+                <a href="/DockerCloud/image/list">Images</a>
+                <a href="/DockerCloud/configuration">Configuration</a>
+                <a href="https://github.com/dongzhou2468/DockerCloud" target="_blank">GitHub</a>
+            </div>
+            <div class="y">
+                <a href="#" onclick="showFloat()">Sign in</a>
+                <a href="#">Sign up</a>
+            </div>
+        </div>
+    </div>  
+	<div class="band-bg" style="opacity=1;position: absolute;left:0;right:0;top:52px;bottom:0;z-index:1;background:url(img/Cloud.jpg) no-repeat center 0;background-size:cover">
+	</div>
+	
     <!--translucent layer-->
     <div id="doing" style="filter:alpha(opacity=40);-moz-opacity:0.4;opacity:0.4;background-color:#404040;width:100%;height:100%;z-index:1000;position: absolute;left:0;top:0;display:none;overflow: hidden;">
     </div>

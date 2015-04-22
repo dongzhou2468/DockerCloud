@@ -1,79 +1,93 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+int count = Integer.parseInt(request.getAttribute("count").toString());
 %>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html ng-app="seagull" class="ng-scope">
+<html>
   <head>
-  	<title>Images | DockerCloud</title>
     <base href="<%=basePath%>">
-    
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta charset="UTF-8">
-    <style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide{display:none !important;}ng\:form{display:block;}.ng-animate-block-transitions{transition:0s all!important;-webkit-transition:0s all!important;}.ng-hide-add-active,.ng-hide-remove{display:block!important;}</style>
-    
-	<link rel="stylesheet" type="text/css" href="<%=basePath%>css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="<%=basePath%>css/jquery.gritter.css">
-    <link rel="stylesheet" type="text/css" href="<%=basePath%>css/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="<%=basePath%>css/hover-min.css">
-    <link rel="stylesheet" type="text/css" href="<%=basePath%>css/style.css">
-
-    <script src="<%=basePath%>js/angular.min.js"></script>
-    <script src="<%=basePath%>js/angular-route.min.js"></script>
-    <script src="<%=basePath%>js/bootstrap.min.js"></script>
-    <script src="<%=basePath%>js/jquery.gritter.min.js"></script>
-    <script src="<%=basePath%>js/angular-translate.min.js"></script>
-    <script src="<%=basePath%>js/angular-cookies.min.js"></script>
-    <script src="<%=basePath%>js/angular-translate-storage-cookie.min.js"></script>
-    <script src="<%=basePath%>js/angular-translate-storage-local.min.js"></script>
-    <script src="<%=basePath%>js/controllers.js"></script>
-    <script src="<%=basePath%>js/style.js"></script>
+    <title>SeaBird | Images</title>
+    <script src="js/jquery-latest.js"></script>
+	<link rel="stylesheet" href="css/style3.css">
   </head>
   
-  <body ng-controller="IndexController" class="animated fadeIn ng-scope">
- 	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <a class="navbar-brand animate-nav ng-binding" href="http://192.168.1.182:10086/">DockerCloud</a>
+  <body>
+  	<div id="top">
+        <div class="wp">
+            <div class="z">
+                <a style="color:#999;" id="logo"></a>
+            </div>
+            <div class="y">
+                <a href="http://product.7po.com">Sign in</a>
+                <a href="http://dev.7po.com/" target="_blank">About Us</a>
+            </div>
         </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li class="animate-nav"><a href="http://192.168.1.182:10086/containers" class="ng-binding">Containers</a></li>
-            <li class="animate-nav"><a href="./Seagull-images_files/Seagull-images.htm" class="ng-binding">Images</a></li>
-            <li class="animate-nav"><a href="http://192.168.1.182:10086/configuration" class="ng-binding">Configuration</a></li>
-            <li class="animate-nav"><a href="http://192.168.1.182:10086/dockerhub" class="ng-binding">DockerHub</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-              <a class="dropdown-toggle animate-nav ng-binding" data-toggle="dropdown" href="">More <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li class="animate-nav ng-hide" ng-hide="isEnUs()"><a href="" ng-click="changeLanguage(&#39;en-us&#39;)" class="ng-binding">English</a></li>
-                <li class="animate-nav" ng-hide="isZhCn()"><a href="" ng-click="changeLanguage(&#39;zh-cn&#39;)" class="ng-binding">简体中文</a></li>
-                <li class="animate-nav" ng-hide="isZhHant()"><a href="" ng-click="changeLanguage(&#39;zh-hant&#39;)" class="ng-binding">繁體中文</a></li>
-                <li class="animate-nav" ng-hide="isDeDe()"><a href="" ng-click="changeLanguage(&#39;de-de&#39;)" class="ng-binding">Deutsch</a></li>
-                <li class="animate-nav" ng-hide="isFrFr()"><a href="" ng-click="changeLanguage(&#39;fr-fr&#39;)" class="ng-binding">Français</a></li>
-                <li class="animate-nav"><a href="https://github.com/tobegit3hub/seagull/issues/new" target="_top" class="ng-binding">Need Help</a></li>
-              </ul>
-            </li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-              <a class="dropdown-toggle animate-nav ng-binding" data-toggle="dropdown" href="">Local <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <!-- ngRepeat: server in notCurrentServers track by $index -->
-                <li class="animate-nav"><a href="" data-toggle="modal" data-target="#addServerModal" class="ng-binding">Add Server</a></li>
-                <li class="animate-nav"><a href="" data-toggle="modal" data-target="#clearServersModal" class="ng-binding">Clear Servers</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div> 
-    
-    <div>
-    	${msg}
     </div>
+  	<script>
+jQuery(function($){
+	$(window).scroll(function(){
+		if ($(document).scrollTop() > 10) $('#scrolltop').show();
+		else $('#scrolltop').hide();
+		if ($(document).scrollTop() >= 52) {
+			if ($('#fix').length == 0) {
+				var left = $('.small').offset().left;
+				var clone = $('.small').clone().attr('id','fix').css({'position':'fixed','top':'0px','left':left+'px'});
+				$('.small').css('visibility','hidden');
+				clone.insertAfter('.small');
+			}
+		} else {
+			$('#fix').remove();
+			$('.small').css('visibility','visible');
+		}
+	});
+    var height = $('.small').outerHeight() > $('.big').outerHeight() ? $('.small').outerHeight() : $('.big').outerHeight();
+	$('.mid').height(height+250);
+});
+	</script>
+  <section>
+  	<div class="mid">
+  		<div class="small">
+	        <div class="cate">
+	            <a class="cate_name" href="http://localhost:8080/DockerCloud/container/list?forwardPage=1">Containers</a>
+	            <a class="cate_name selected" href="#">Images</a>
+	            <a class="cate_name" href="#">Configuration</a>
+	            <a class="cate_name" href="#">DockerHub</a>
+	        </div>
+    	</div>
+    	<div class="right" style="left:185px;top:30px;font-size:28px;">
+    		<h1>Images&emsp;</h1>
+    		<form class="right" action="#">
+      			<input name="search" class="search-box" type="text" placeholder="Search" autocomplete="off">
+    		</form>
+    	</div>
+    	<div class="big right" style="top:80px;">
+        	<div class="image-tbhead">
+        		<div class="td">Id</div>
+        		<div class="td1">RepoTags</div>
+        		<div class="td">Created</div>
+        		<div class="td">VirtualSize</div>
+        		<div class="td">Operation</div>
+        	</div>
+        	<%
+        	for(int i = 0; i < count; i++){
+        		request.setAttribute("i", i);
+        		if(i % 2 != 0 && i != 0){%>
+		        	<div class="image-tbline">
+		        <%} else {%>
+		        	<div class="image-tbline" style="background-color:#fff;">
+		        <%} %>
+		        		<div class="td">${imgs[i].subId }</div>
+		        		<div class="td1"><p style="overflow:hidden;height:30px;">${imgs[i].name }</p></div>
+		        		<div class="td">${imgs[i].date }</div>
+		        		<div class="td">${imgs[i].sizeUnit }</div>
+		        		<div class="td"><div class="td2"><a href="#" style="color:#fff;">Delete</a></div></div>
+		        	</div>
+        	<%} %>
+      	</div>
+    </div>
+  </section>
   </body>
 </html>

@@ -21,10 +21,6 @@ public class ContainerCtrl {
 		this.containerImpl = containerImpl;
 	}
 
-	public DockerContainersImpl getContainerImpl() {
-		return containerImpl;
-	}
-
 	@RequestMapping("/container/list")
 	public ModelAndView listContainers(String forwardPage, String retrieve) {
 		System.out.println(forwardPage);
