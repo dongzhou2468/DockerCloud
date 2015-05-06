@@ -77,8 +77,8 @@ jQuery(function($){
 		for(int i = 0; i < edge; i++) {
 			i = i + (currentPage - 1) * 10;
 			request.setAttribute("i", i);%>
-            <li id="1428575893" class="apk_infos">
-                <a href="${cts[i].website }"><img src="img/app/${i}.jpg" alt="${cts[i].name }"/></a>
+            <li class="apk_infos">
+                <a href="${cts[i].website }"><img src="img/app/${cts[i].name}.jpg" alt="${cts[i].name }"/></a>
                 <h1 class="apk_title"><a href="${cts[i].website }">${cts[i].name } </a><span>v1.5.24 &emsp;[${cts[i].containerStatus }]</span></h1>
                 <p class="apk_desc">Image: ${cts[i].image}<br>Ports: ${cts[i].ports}</p>
                 <span class="apk_info">2015-04-09 &bull; 11Stars</span>
@@ -95,7 +95,7 @@ jQuery(function($){
                 <%} %>
             </li>
             <%
-            if(last)
+            if(last && currentPage != 1)
             	i = i - 10;
         } %>
         </ul>

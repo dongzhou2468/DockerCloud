@@ -14,7 +14,7 @@ import com.google.gson.reflect.TypeToken;
 @Component
 public class DockerImagesImpl {
 
-	private String dockerUrlResource = "http://222.201.187.162:2375/images";
+	private String dockerUrlResource = "http://222.201.187.162:2375/";
 	private Type listType;
 	private ArrayList<Image> iList;
 
@@ -26,8 +26,12 @@ public class DockerImagesImpl {
 		this.iList = iList;
 	}
 
-	public void setDockerUrlResource(String dockerUrl) {
-		dockerUrlResource = dockerUrlResource + dockerUrl;
+	public void setDockerUrlResource(String dockerUrl, int i) {
+		if (i == 0) {
+			dockerUrlResource = dockerUrlResource + "images" + dockerUrl;
+		} else if (i == 1) {
+			dockerUrlResource = dockerUrlResource + "containers" + dockerUrl;
+		}
 		System.out.println(dockerUrlResource);
 	}
 	
@@ -42,9 +46,22 @@ public class DockerImagesImpl {
 		resetUrl();
 	}
 	
+	public void runContainers(String cmd) {
+
+//      Map contaiterCmd=new HashMap();
+//      contaiterCmd.put("Hostname", "aaa");
+		
+		HttpHandler.runContainers(dockerUrlResource, cmd);
+		resetUrl();
+	}
 	
+	public void removeImages() {
+		
+		HttpHandler.httpDelete(dockerUrlResource);
+		resetUrl();
+	}
 	
 	public void resetUrl() {
-		dockerUrlResource = "http://222.201.187.162:2375/images";
+		dockerUrlResource = "http://222.201.187.162:2375/";
 	}
 }

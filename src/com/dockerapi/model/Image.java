@@ -13,6 +13,7 @@ public class Image {
     private long VirtualSize;
     private String[] RepoTags;
     
+    private String repoTag;
     private String name;
     private String date;
     private String subId;
@@ -43,14 +44,18 @@ public class Image {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		date = sdf.format(new Date(Created*1000L));
 	}
+	public String getRepoTag() {
+		return repoTag;
+	}
 	public String getName() {
 		return name;
 	}
 	public void setName() {
-    	name = "";
+		repoTag = "";
     	for(int i = 0; i < RepoTags.length; i++){
-    		name = name + RepoTags[i];
+    		repoTag = repoTag + RepoTags[i].split(":")[1] + " ";
     	}
+    	name = RepoTags[0].split(":")[0];
 	}
     
 	public String getId() {

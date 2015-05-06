@@ -1,5 +1,8 @@
 package com.dockerapi.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
@@ -8,11 +11,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dockerapi.client.DockerContainersImpl;
+import com.dockerapi.dao.DBConn;
+import com.dockerapi.model.Container;
 
 @Component
 @Controller
 public class ContainerCtrl {
 
+	@Resource
+	private DBConn dbConn;
 	private DockerContainersImpl containerImpl;
 	private static String RETRIEVE = "1";
 
@@ -31,10 +38,19 @@ public class ContainerCtrl {
 			containerImpl.setDockerUrlResource(dockerUrl);
 			containerImpl.listContainers();
 		}
+		
+		// set website url
+		String url = "";
+		ArrayList<Container> temp = containerImpl.getcList();
+		for (int i = 0; i < temp.size(); i++) {
+			url = dbConn.imageInfo(temp.get(i).getName(), "url");
+			temp.get(i).setWebsite(url);
+		}
+		
 		ModelAndView mv = new ModelAndView("containers1");
 		mv.addObject("currentPage", forwardPage);
-		mv.addObject("count", containerImpl.getcList().size());
-		mv.addObject("cts", containerImpl.getcList());
+		mv.addObject("count", temp.size());
+		mv.addObject("cts", temp);
 		return mv;
 	}
 
@@ -87,4 +103,6 @@ public class ContainerCtrl {
 		containerImpl.removeContainers();
 		return listContainers(currentPage, RETRIEVE);
 	}
+	
+	
 }

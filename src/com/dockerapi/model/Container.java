@@ -19,16 +19,16 @@ public class Container {
 	}
 
 	public void setContainerStatus() {
-		this.containerStatus = Status.startsWith("Exited")? "Exited" : "Running";
+		this.containerStatus = Status.startsWith("Up")? "Running" : "Exited";
 	}
 
 	public String getWebsite() {
 		return website;
 	}
 
-	public void setWebsite() {
-		if(Ports.length != 0)
-			this.website = "http://222.201.187.162:" + Ports[0].PublicPort;
+	public void setWebsite(String url) {
+		if(!url.equals(""))
+			this.website = "http://222.201.187.162:" + url;
 		else this.website = "javascript:void(0);";
 	}
 

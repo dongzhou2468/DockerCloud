@@ -23,11 +23,11 @@ public class JsonData {
 			cList.get(i).setSubId();
 			cList.get(i).setName();
 			cList.get(i).setContainerStatus();
-			cList.get(i).setWebsite();
+//			cList.get(i).setWebsite();
 		}
 		dci.setcList(cList);
 		System.out.println(dci.toString());
-		System.out.println(cList.get(0).toString());
+		System.out.println(cList.size());
 		System.out.println(cList.get(1).toString());
 	}
 	

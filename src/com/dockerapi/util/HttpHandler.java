@@ -66,6 +66,28 @@ public class HttpHandler {
 		}
 	}
 	
+	public static void runContainers(String dockerUrlResource,String param) {
+
+		try {
+			URL realUrl = new URL(dockerUrlResource);
+			HttpURLConnection connection = (HttpURLConnection) realUrl
+					.openConnection();
+			connection.setRequestMethod("POST");
+			connection.setDoOutput(true);
+			connection.setRequestProperty("Content-Type", "application/json");
+
+			byte[] bypes = param.toString().getBytes();
+			OutputStream outStream = connection.getOutputStream();
+			outStream.write(bypes);
+			outStream.flush();
+			outStream.close();
+			System.out.println("run container" + " => " + connection.getResponseCode());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static void httpDelete(String dockerUrlResource) {
 
 		try {

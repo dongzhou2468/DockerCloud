@@ -322,9 +322,9 @@ footer p {color:#999;display: inline-block;}
 .apk_desc {display:inline-block;position: absolute;top:42px;left:200px;color:#a9a8a8;width:390px;font-size: 13px;line-height: 23px;height: 46px;overflow: hidden;}
 .apk_down {display:block;width:85px;height:34px;background-color: #249ff1;color:#FFF;font-size:18px;position: absolute;right:95px;top:42px;line-height: 32px;text-align: center;}
 #apk_install {top:77px;background-color:#ff6e00;}
-.apk_down:hover {background-color: #f7814d;}
-.delete:hover {background-color: #d9534f;}
-.start:hover {background-color: #5cb85c;}
+.apk_down {background-color: #f7814d;}
+.delete {background-color: #d9534f;}
+.start {background-color: #5cb85c;}
 #apk_install:hover {background-color: #ff9e00;}
 .apk_ver {position: absolute;top:45px;left: 200px;}
 .apk_size {position: absolute;top:45px;left: 420px;}
@@ -431,8 +431,7 @@ footer p {color:#999;display: inline-block;}
 a.device:not(.down):not(.down2):not(.apk_down):hover {color:#FFF;}
 
 .image-tbhead {width:808px;height:50px;padding:15px 13px;font-size:17px;color:#249ff1;}
-.image-tbline {width:808px;height:50px;padding:20px 10px;font-size:16px;border-top:1px solid #ECECEC;}
-.td {padding-left:5px;float:left;width:100px;height:30px;}
-.td1 {padding:0 30px;float:left;width:360px;height:30px;}
-.td2 {margin:-10px 5px;width:100px;height:30px;text-align:center;border:1px solid #d9534f;border-radius:5px;background-color:#d9534f;padding-top:5px;}
-
+.image-tbline {width:808px;height:60px;padding:20px 10px;font-size:16px;border-top:1px solid #ECECEC;}
+.td {padding-left:5px;float:left;width:120px;height:30px;}
+.td1 {padding:0 30px;float:left;width:240px;height:30px;}
+.td a {position:absolute;display:block;width:80px;height:30px;border-radius:5px;background-color:#d9534f;line-height:30px;text-align:center;color:#fff;}

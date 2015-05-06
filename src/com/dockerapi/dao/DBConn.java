@@ -18,15 +18,16 @@ public class DBConn {
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
-	
+
 	public boolean loginAuth(String email, String password) {
-		
+
 		boolean authen = false;
 		System.out.println("email=" + email + " password=" + password);
 		try {
 			Connection conn = dataSource.getConnection();
-			ResultSet rs = conn.createStatement().executeQuery("select * from user where email='" + email + "'");
-			while(rs.next()){
+			ResultSet rs = conn.createStatement().executeQuery(
+					"select * from user where email='" + email + "'");
+			while (rs.next()) {
 				authen = (password.equals(rs.getString("password")));
 				System.out.println(authen);
 			}
@@ -36,9 +37,27 @@ public class DBConn {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		return authen;
-		
 	}
-	
+
+	public String imageInfo(String name, String item) {
+
+		String retrieve = "";
+		System.out.println("name=" + name + " to retrieve=" + item);
+		try {
+			Connection conn = dataSource.getConnection();
+			ResultSet rs = conn.createStatement().executeQuery(
+					"select " + item + " from app where name='" + name + "'");
+			while (rs.next()) {
+				retrieve = rs.getString(item);
+				System.out.println(retrieve);
+			}
+			rs.close();
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return retrieve;
+	}
 }

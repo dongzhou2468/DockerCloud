@@ -65,8 +65,8 @@ jQuery(function($){
     	</div>
     	<div class="big right" style="top:80px;">
         	<div class="image-tbhead">
-        		<div class="td">Id</div>
-        		<div class="td1">RepoTags</div>
+        		<div class="td1">Name</div>
+        		<div class="td">RepoTags</div>
         		<div class="td">Created</div>
         		<div class="td">VirtualSize</div>
         		<div class="td">Operation</div>
@@ -79,11 +79,14 @@ jQuery(function($){
 		        <%} else {%>
 		        	<div class="image-tbline" style="background-color:#fff;">
 		        <%} %>
-		        		<div class="td">${imgs[i].subId }</div>
-		        		<div class="td1"><p style="overflow:hidden;height:30px;">${imgs[i].name }</p></div>
+		        		<div class="td1">${imgs[i].name }</div>
+		        		<div class="td"><p style="overflow:hidden;height:30px;">${imgs[i].repoTag }</p></div>
 		        		<div class="td">${imgs[i].date }</div>
 		        		<div class="td">${imgs[i].sizeUnit }</div>
-		        		<div class="td"><div class="td2"><a href="#" style="color:#fff;">Delete</a></div></div>
+		        		<div class="td" style="width:180px;position:relative;margin-top:-5px;">
+		        			<a href="http://localhost:8080/DockerCloud/image/run?i=<%=i %>" style="left:5px;background-color:#5cb85c;">Run</a>
+		        			<a href="http://localhost:8080/DockerCloud/image/remove?i=<%=i %>" style="left:100px;">Delete</a>
+		        		</div>
 		        	</div>
         	<%} %>
       	</div>
