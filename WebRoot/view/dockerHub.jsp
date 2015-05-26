@@ -1,22 +1,20 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 int count = Integer.parseInt(request.getAttribute("count").toString());
-//int res = Integer.parseInt(request.getAttribute("response").toString());
 %>
 
 <html>
   <head>
     <base href="<%=basePath%>">
-    <title>SeaBird | Images</title>
-    <script src="js/jquery-latest.js"></script>
+    <title>SeaBird | DockerHub</title>
+	<script src="js/jquery-latest.js"></script>
 	<link rel="stylesheet" href="css/style3.css">
   </head>
   
   <body>
-  	<div id="top">
+    <div id="top">
         <div class="wp">
             <div class="z">
                 <a style="color:#999;" id="logo"></a>
@@ -28,16 +26,6 @@ int count = Integer.parseInt(request.getAttribute("count").toString());
         </div>
     </div>
   	<script>
-  	
-  	window.onload = function() {
-  		var res = "${response }";
-  		if(res == "201") {
-  			alert("\nApplication installed successfully.\n\nStart before you use this application.");
-  		} else if(res != "0") {
-  			alert("Installation failed!\n");
-  		}
-  	}
-  	
 jQuery(function($){
 	$(window).scroll(function(){
 		if ($(document).scrollTop() > 10) $('#scrolltop').show();
@@ -68,24 +56,24 @@ jQuery(function($){
   		<div class="small">
 	        <div class="cate">
 	            <a class="cate_name" href="http://localhost:8080/DockerCloud/container/list?forwardPage=1">Applications</a>
-	            <a class="cate_name selected" href="http://localhost:8080/DockerCloud/image/list?i=0">Installation</a>
+	            <a class="cate_name" href="http://localhost:8080/DockerCloud/image/list?i=0">Installation</a>
 	            <a class="cate_name" href="#">Configuration</a>
-	            <a class="cate_name" href="http://localhost:8080/DockerCloud/image/search?search=ubuntu">DockerHub</a>
+	            <a class="cate_name selected" href="http://localhost:8080/DockerCloud/image/search?search=ubuntu">DockerHub</a>
 	        </div>
     	</div>
     	<div class="right" style="left:185px;top:30px;font-size:28px;">
-    		<h1>Installation&emsp;</h1>
-    		<form class="right" action="#">
-      			<input name="search" class="search-box" type="text" placeholder="Search" autocomplete="off">
+    		<h1>DockerHub&emsp;</h1>
+    		<form class="right" action="http://localhost:8080/DockerCloud/image/search">
+      			<input name="search" class="search-box" type="text" placeholder="ubuntu" autocomplete="off">
     		</form>
     	</div>
     	<div class="big right" style="top:80px;">
         	<div class="image-tbhead">
-        		<div class="td1">Name</div>
-        		<div class="td">RepoTags</div>
-        		<div class="td">Created</div>
-        		<div class="td">VirtualSize</div>
-        		<div class="td">Operation</div>
+        		<div class="td" style="width:150px;">Name</div>
+        		<div class="td1" style="width:325px;">Description</div>
+        		<div class="td" style="width:85px;">IsOfficial</div>
+        		<div class="td" style="width:85px;">IsTrusted</div>
+        		<div class="td" style="width:85px;">StarCount</div>
         	</div>
         	<%
         	for(int i = 0; i < count; i++){
@@ -95,18 +83,18 @@ jQuery(function($){
 		        <%} else {%>
 		        	<div class="image-tbline" style="background-color:#fff;">
 		        <%} %>
-		        		<div class="td1">${imgs[i].name }</div>
-		        		<div class="td" title="${imgs[i].repoTag }"><p style="overflow:hidden;height:30px;">${imgs[i].repoTag }</p></div>
-		        		<div class="td">${imgs[i].date }</div>
-		        		<div class="td">${imgs[i].sizeUnit }</div>
-		        		<div class="td" style="width:180px;position:relative;margin-top:-5px;">
-		        			<a href="http://localhost:8080/DockerCloud/image/run?i=<%=i %>" style="left:5px;background-color:#5cb85c;">Install</a>
-		        			<a href="http://localhost:8080/DockerCloud/image/remove?i=<%=i %>" style="left:100px;">Delete</a>
+		        		<div class="td" style="width:150px;">${imgs[i].name }</div>
+		        		<div class="td1" style="width:350px;" title="${imgs[i].description }">${imgs[i].description }</div>
+		        		<div class="td" style="width:80px;">${imgs[i].is_official }</div>
+		        		<div class="td" style="width:80px;">${imgs[i].is_trusted }</div>
+		        		<div class="td" style="width:80px;">${imgs[i].star_count }</div>
+		        		<div class="td" style="width:30px;position:relative;margin-top:-5px;">
+		        			<a href="#" style="background-color:#5cb85c;width:75px;margin-left:-22px;">Apply</a>
 		        		</div>
 		        	</div>
         	<%} %>
       	</div>
-    </div>
+    </div>	
   </section>
   </body>
 </html>

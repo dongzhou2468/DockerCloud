@@ -14,6 +14,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
 	  <script  type="text/javascript">
+	  	
+	  	window.onload = function() {
+	  		var login = "${login }";
+	  		if (login == "0") {
+				alert("Login failed!");
+			}
+	  	}
+	  
 	    //pop up login
 	    function ShowNo()                        //hide the two layers
 	    {

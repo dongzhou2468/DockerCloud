@@ -6,6 +6,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 int count = Integer.parseInt(request.getAttribute("count").toString());
 int currentPage = Integer.parseInt(request.getAttribute("currentPage").toString());
 int pageCount = (count%10 == 0)? count/10 : count/10 + 1;
+//re-login if null
+String username = session.getAttribute("username").toString();
 %>
 
 <html>
@@ -24,7 +26,7 @@ int pageCount = (count%10 == 0)? count/10 : count/10 + 1;
                 <a style="color:#999;" id="logo"></a>
             </div>
             <div class="y">
-                <a href="http://product.7po.com">Sign in</a>
+                <a href="http://product.7po.com"><%=username %></a>
                 <a href="http://dev.7po.com/" target="_blank">About Us</a>
             </div>
         </div>
@@ -47,21 +49,26 @@ jQuery(function($){
 		}
 	});
     var height = $('.small').outerHeight() > $('.big').outerHeight() ? $('.small').outerHeight() : $('.big').outerHeight();
-	$('.mid').height(height+50);
+	var wHeight=document.documentElement.clientHeight;
+	if (height + 80 + 52 < wHeight) {
+		$('.mid').height(wHeight - 52 - 32);
+		return;
+	}
+	$('.mid').height(height + 100);
 });
 	</script>
   <section>
   	<div class="mid">
   		<div class="small">
 	        <div class="cate">
-	            <a class="cate_name selected" href="#">Containers</a>
-	            <a class="cate_name" href="http://localhost:8080/DockerCloud/image/list">Images</a>
+	            <a class="cate_name selected" href="http://localhost:8080/DockerCloud/container/list?forwardPage=1">Applications</a>
+	            <a class="cate_name" href="http://localhost:8080/DockerCloud/image/list?i=0">Installation</a>
 	            <a class="cate_name" href="#">Configuration</a>
-	            <a class="cate_name" href="#">DockerHub</a>
+	            <a class="cate_name" href="http://localhost:8080/DockerCloud/image/search?search=ubuntu">DockerHub</a>
 	        </div>
     	</div>
     	<div class="right" style="left:185px;top:30px;font-size:28px;">
-    		<h1>Containers&emsp;</h1>
+    		<h1>Applications&emsp;</h1>
     		<form class="right" action="#">
       			<input name="search" class="search-box" type="text" placeholder="Search" autocomplete="off">
     		</form>
@@ -90,7 +97,7 @@ jQuery(function($){
                 <a class="apk_down" href="http://localhost:8080/DockerCloud/container/stop?i=<%=i%>&currentPage=<%=currentPage%>">Stop</a>
                 <%
                 } else { %>
-                <a class="apk_down delete" style="right:3px" href="http://localhost:8080/DockerCloud/container/remove?i=<%=i%>&currentPage=<%=currentPage%>">Delete</a>
+                <a class="apk_down delete" style="right:3px" href="http://localhost:8080/DockerCloud/container/remove?i=<%=i%>&currentPage=<%=currentPage%>">Uninstall</a>
                 <a class="apk_down start" href="http://localhost:8080/DockerCloud/container/start?i=<%=i%>&currentPage=<%=currentPage%>">Start</a>
                 <%} %>
             </li>
@@ -118,7 +125,7 @@ jQuery(function($){
  		<%} else {%>
  			<a href="http://localhost:8080/DockerCloud/container/list?forwardPage=<%=currentPage+1 %>&retrieve=0">&gt; </a>
  		<%} %>
- 	</div>
+ 		</div>
       	</div>
       	
     </div>

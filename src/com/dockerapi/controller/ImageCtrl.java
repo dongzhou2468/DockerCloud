@@ -26,7 +26,7 @@ public class ImageCtrl {
 	}
 
 	@RequestMapping("/image/list")
-	public ModelAndView listImages() {
+	public ModelAndView listImages(String i) {
 
 		// get ip:port from .properties
 		String dockerUrl = "/json";
@@ -36,6 +36,9 @@ public class ImageCtrl {
 		ModelAndView mv = new ModelAndView("images");
 		mv.addObject("count", imagesImpl.getiList().size());
 		mv.addObject("imgs", imagesImpl.getiList());
+		//if (!i.equals("0")) {
+			mv.addObject("response", i);
+		//}
 		return mv;
 	}
 
@@ -45,10 +48,13 @@ public class ImageCtrl {
 		String name = imagesImpl.getiList().get(Integer.parseInt(i)).getName();
 		System.out.println(name);
 
+		if (name.indexOf("openoffice") != -1) {
+			name = "openoffice";
+		}
 		String cmdJson = dbConn.imageInfo(name, "cmdJson");
 		String dockerUrl = "/create?name=" + name;
 		imagesImpl.setDockerUrlResource(dockerUrl, 1);
-		imagesImpl.runContainers(cmdJson);
+		int responseCode = imagesImpl.runContainers(cmdJson);
 
 		// phpmyadmin for mysql
 		if (name.equals("mysql")) {
@@ -57,7 +63,7 @@ public class ImageCtrl {
 			imagesImpl.setDockerUrlResource(dockerUrl, 1);
 			imagesImpl.runContainers(cmdJson);
 		}
-		return listImages();
+		return listImages(responseCode + "");
 	}
 
 	@RequestMapping("/image/remove")
@@ -71,9 +77,23 @@ public class ImageCtrl {
 		String id = imagesImpl.getiList().get(Integer.parseInt(i)).getId();
 		String dockerUrl = "/" + id;
 		imagesImpl.setDockerUrlResource(dockerUrl, 0);
-		imagesImpl.removeImages();
+		int responseCode = imagesImpl.removeImages();
 
-		return listImages();
+		return listImages(responseCode + "");
 	}
 
+	@RequestMapping("/image/search")
+	public ModelAndView searchImages(String search) {
+
+		System.out.println(search);
+		String dockerUrl = "/search?term=" + search;
+		imagesImpl.setDockerUrlResource(dockerUrl, 0);
+		imagesImpl.searchImages();
+
+		ModelAndView mv = new ModelAndView("dockerHub");
+		mv.addObject("count", imagesImpl.getiFromHubList().size());
+		mv.addObject("imgs", imagesImpl.getiFromHubList());
+		return mv;
+	}
+	
 }

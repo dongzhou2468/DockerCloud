@@ -1,6 +1,7 @@
 package com.dockerapi.controller;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,17 +26,20 @@ public class LoginCtrl {
 	private DBConn dbConn;
 	
 	@RequestMapping("/login")
-	public ModelAndView loginAuth(String email, String password) {
+	public ModelAndView loginAuth(String email, String password, HttpSession session) {
 		
 		String dest = "index";
 		System.out.println("email=" + email + "password=" + password);
-		AUTHEN = dbConn.loginAuth(email, password);
+//		AUTHEN = dbConn.loginAuth(email, password);
+		String username = dbConn.loginAuth(email, password);
 		REDIRECT = true;
-		if(REDIRECT) {
+		if(!username.equals("") && REDIRECT) {
+			session.setAttribute("username", username);
 			return containerCtrl.listContainers(PAGE, "");
 		}
 		
 		ModelAndView mv = new ModelAndView(dest);
+		mv.addObject("login", "0");
 		return mv;
 	}
 	

@@ -19,9 +19,10 @@ public class DBConn {
 		this.dataSource = dataSource;
 	}
 
-	public boolean loginAuth(String email, String password) {
+	public String loginAuth(String email, String password) {
 
 		boolean authen = false;
+		String username = "";
 		System.out.println("email=" + email + " password=" + password);
 		try {
 			Connection conn = dataSource.getConnection();
@@ -30,6 +31,10 @@ public class DBConn {
 			while (rs.next()) {
 				authen = (password.equals(rs.getString("password")));
 				System.out.println(authen);
+				if (authen == false) {
+					break;
+				}
+				username = rs.getString("username");
 			}
 			rs.close();
 			conn.close();
@@ -37,7 +42,7 @@ public class DBConn {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return authen;
+		return username;
 	}
 
 	public String imageInfo(String name, String item) {

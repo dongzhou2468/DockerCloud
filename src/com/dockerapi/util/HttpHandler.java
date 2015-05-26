@@ -24,7 +24,7 @@ public class HttpHandler {
 			System.out.println(connection.getResponseCode());
 
 			in = new BufferedReader(new InputStreamReader(
-					connection.getInputStream()));
+					connection.getInputStream(), "UTF-8"));		//utf-8编码
 			String line;
 			while ((line = in.readLine()) != null) {
 				result += line;
@@ -66,13 +66,14 @@ public class HttpHandler {
 		}
 	}
 	
-	public static void runContainers(String dockerUrlResource,String param) {
+	public static int runContainers(String dockerUrlResource,String param) {
 
+		int responseCode = 0;
 		try {
 			URL realUrl = new URL(dockerUrlResource);
 			HttpURLConnection connection = (HttpURLConnection) realUrl
 					.openConnection();
-			connection.setRequestMethod("POST");
+			connection.setRequestMethod("POST");   //如有中文需设置utf-8编码
 			connection.setDoOutput(true);
 			connection.setRequestProperty("Content-Type", "application/json");
 
@@ -81,26 +82,30 @@ public class HttpHandler {
 			outStream.write(bypes);
 			outStream.flush();
 			outStream.close();
-			System.out.println("run container" + " => " + connection.getResponseCode());
+			responseCode = connection.getResponseCode();
+			System.out.println("run container" + " => " + responseCode);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return responseCode;
 	}
 	
-	public static void httpDelete(String dockerUrlResource) {
+	public static int httpDelete(String dockerUrlResource) {
 
+		int responseCode = 0;
 		try {
 			URL realUrl = new URL(dockerUrlResource);
 			HttpURLConnection connection = (HttpURLConnection) realUrl
 					.openConnection();
 			connection.setRequestMethod("DELETE");
 			connection.setDoOutput(true);
-
-			System.out.println("Remove => " + connection.getResponseCode());
+			responseCode = connection.getResponseCode();
+			System.out.println("Remove => " + responseCode);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return responseCode;
 	}
 }

@@ -47,6 +47,16 @@ public class JsonData {
 		System.out.println(iList.get(1).toString());
 	}
 	
+	public static void imageFromHubToObject(String jsonData, DockerImagesImpl dii, Type listType) {
+		Gson gson = new Gson();
+		System.out.println(jsonData);
+		ArrayList<ImageFromHub> iFromHubList = gson.fromJson(jsonData, listType);
+		dii.setiFromHubList(iFromHubList);
+		System.out.println(dii.toString());
+		System.out.println(iFromHubList.get(0).toString());
+		System.out.println(iFromHubList.get(1).toString());
+	}
+	
 	public static void jsonToObject1(String jsonData, DockerContainersImpl dci) {
 		Gson gson = new Gson();
 		System.out.println(jsonData);
